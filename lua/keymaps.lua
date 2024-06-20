@@ -48,4 +48,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- change buffer
+vim.keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Switch to [N]ext buffer' })
+vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = 'Switch to [P]revious buffer' })
+vim.keymap.set('n', '<leader>bd', ':bd<CR>', { desc = '[D]elete current buffer' })
+
 -- vim: ts=2 sts=2 sw=2 et
