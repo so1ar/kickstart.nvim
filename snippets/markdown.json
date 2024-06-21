@@ -1,0 +1,13 @@
+{
+  "qm1": {
+    "prefix": "qm1",
+    "body": ["「${0}」"],
+    "description": "引号"
+  },
+
+  "qm2": {
+    "prefix": "qm2",
+    "body": ["『${0}』"],
+    "description": "引号"
+  }
+}
