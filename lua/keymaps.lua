@@ -49,8 +49,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Changeing buffer
-vim.keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Switch to [N]ext buffer' })
-vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = 'Switch to [P]revious buffer' })
+vim.keymap.set('n', '<leader>l', ':bnext<CR>', { desc = 'Switch to [N]ext buffer' })
+vim.keymap.set('n', '<leader>h', ':bprevious<CR>', { desc = 'Switch to [P]revious buffer' })
 vim.keymap.set('n', '<leader>bd', ':bd<CR>', { desc = '[D]elete current buffer' })
 
 -- Yanking into clipboard
