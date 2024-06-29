@@ -43,7 +43,8 @@ return {
       -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
       -- and elegantly composed help section, `:help lsp-vs-treesitter`
 
-      -- Diagnostics customization
+      -- NOTE:Diagnostics customization
+      -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#customizing-how-diagnostics-are-displayed
       vim.diagnostic.config {
         virtual_text = false,
         signs = true,
