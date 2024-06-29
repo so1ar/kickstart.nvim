@@ -43,11 +43,14 @@ return {
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      -- For showing kind icons
+      -- NOTE:For showing kind icons
+      -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
       local lspkind = require 'lspkind'
       luasnip.config.setup {}
 
       cmp.setup {
+        -- NOTE:
+        -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
         formatting = {
           format = lspkind.cmp_format {
             mode = 'symbol_text',
@@ -92,7 +95,7 @@ return {
           -- ['<Tab>'] = cmp.mapping.select_next_item(),
           -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
-          -- Super-Tab like mapping
+          -- NOTE:Super-Tab like mapping
           -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
           ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -141,16 +144,16 @@ return {
           --
           -- <c-l> will move you to the right of each of the expansion locations.
           -- <c-h> is similar, except moving you backwards.
-          ['<C-l>'] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { 'i', 's' }),
-          ['<C-h>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { 'i', 's' }),
+          -- ['<C-l>'] = cmp.mapping(function()
+          --   if luasnip.expand_or_locally_jumpable() then
+          --     luasnip.expand_or_jump()
+          --   end
+          -- end, { 'i', 's' }),
+          -- ['<C-h>'] = cmp.mapping(function()
+          --   if luasnip.locally_jumpable(-1) then
+          --     luasnip.jump(-1)
+          --   end
+          -- end, { 'i', 's' }),
 
           -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -162,6 +165,8 @@ return {
           { name = 'buffer' },
         },
       }
+
+      -- NOTE:https://github.com/hrsh7th/nvim-cmp?tab=readme-ov-file#recommended-configuration
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline(),
@@ -170,6 +175,7 @@ return {
         },
       })
 
+      -- NOTE:
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
