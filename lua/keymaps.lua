@@ -55,6 +55,6 @@ vim.keymap.set('n', '<leader>bd', ':bd<CR>', { desc = 'Delete Current Buffer' })
 vim.keymap.set('n', '<leader>b!', ':bd!<CR>', { desc = 'Force Delete Current Buffer' })
 
 -- Yanking into clipboard
-vim.keymap.set({ 'v' }, 'Y', [["+y]])
+vim.keymap.set('v', '<leader>y', [["+y]], { desc = 'Yanking into Clipboard' })
 
 -- vim: ts=2 sts=2 sw=2 et
