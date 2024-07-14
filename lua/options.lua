@@ -59,7 +59,10 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- BackSpace Don't corss line
-vim.opt.backspace = 'indent,start'
+-- Tabstop
+-- vim.opt.tabstop = 4
+-- vim.opt.shiftwidth = 4
+-- vim.opt.softtabstop = 4
+-- vim.opt.expandtab = true
 
 -- vim: ts=2 sts=2 sw=2 et
