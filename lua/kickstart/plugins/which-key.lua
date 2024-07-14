@@ -19,8 +19,10 @@ return {
     -- event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     event = 'VeryLazy', -- Sets the loading event to 'VeryLazy'
     config = function() -- This is the function that runs, AFTER loading
-      local wk = require 'which-key'
-      wk.add {
+      require('which-key').setup()
+
+      -- Document existing key chains
+      require('which-key').add {
         { '<leader>b', group = '[B]uffer' },
         { '<leader>b_', hidden = true },
         { '<leader>c', group = '[C]ode' },
