@@ -13,7 +13,7 @@ return {
     },
     keys = {
       {
-        's',
+        '<leader>sp',
         mode = { 'n', 'x', 'o' },
         function()
           require('flash-zh').jump { chinese_only = false }
