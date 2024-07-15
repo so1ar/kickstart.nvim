@@ -24,6 +24,7 @@ return {
       { '<leader>/', desc = '[/] Fuzzily search in current buffer' },
       { '<leader>s/', desc = '[S]earch [/] in Open Files' },
       { '<leader>sn', desc = '[S]earch [N]eovim files' },
+      { '<leader>sH', desc = '[S]earch [H]idden files(may be very slow)' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -100,6 +101,9 @@ return {
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>sH', function()
+        builtin.find_files { hidden = true }
+      end, { desc = '[S]earch [H]idden files(may be very slow)' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
