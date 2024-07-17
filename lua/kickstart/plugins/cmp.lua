@@ -48,8 +48,16 @@ return {
       local lspkind = require 'lspkind'
       luasnip.config.setup {}
 
+      -- NOTE: Confirm candidate on TAB immediately when there's only one completion entry
+      -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#confirm-candidate-on-tab-immediately-when-theres-only-one-completion-entry
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
+      end
+
       cmp.setup {
-        -- NOTE:
+        -- NOTE:Appearance customisations
         -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
         formatting = {
           format = lspkind.cmp_format {
@@ -62,6 +70,11 @@ return {
               cmdline = '[Cmdline]',
             },
           },
+        },
+
+        experimental = {
+          ghost_text = false,
+          native_menu = false,
         },
 
         snippet = {
@@ -98,6 +111,7 @@ return {
 
           -- NOTE:Super-Tab like mapping
           -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+          -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#confirm-candidate-on-tab-immediately-when-theres-only-one-completion-entry
           ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               if luasnip.expandable() then
@@ -114,9 +128,18 @@ return {
 
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              cmp.select_next_item()
+              if #cmp.get_entries() == 1 then
+                cmp.confirm { select = true }
+              else
+                cmp.select_next_item()
+              end
             elseif luasnip.locally_jumpable(1) then
               luasnip.jump(1)
+            elseif has_words_before() then
+              cmp.complete()
+              if #cmp.get_entries() == 1 then
+                cmp.confirm { select = true }
+              end
             else
               fallback()
             end
@@ -170,7 +193,25 @@ return {
       -- NOTE:https://github.com/hrsh7th/nvim-cmp?tab=readme-ov-file#recommended-configuration
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmp.mapping.preset.cmdline {
+          -- NOTE:https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#confirm-candidate-on-tab-immediately-when-theres-only-one-completion-entry
+          ['<Tab>'] = {
+            c = function(_)
+              if cmp.visible() then
+                if #cmp.get_entries() == 1 then
+                  cmp.confirm { select = true }
+                else
+                  cmp.select_next_item()
+                end
+              else
+                cmp.complete()
+                if #cmp.get_entries() == 1 then
+                  cmp.confirm { select = true }
+                end
+              end
+            end,
+          },
+        },
         sources = {
           { name = 'buffer' },
         },
@@ -179,7 +220,25 @@ return {
       -- NOTE:
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmp.mapping.preset.cmdline {
+          -- NOTE: https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#confirm-candidate-on-tab-immediately-when-theres-only-one-completion-entry
+          ['<Tab>'] = {
+            c = function(_)
+              if cmp.visible() then
+                if #cmp.get_entries() == 1 then
+                  cmp.confirm { select = true }
+                else
+                  cmp.select_next_item()
+                end
+              else
+                cmp.complete()
+                if #cmp.get_entries() == 1 then
+                  cmp.confirm { select = true }
+                end
+              end
+            end,
+          },
+        },
         sources = cmp.config.sources({
           { name = 'path' },
         }, {
