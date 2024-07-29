@@ -194,6 +194,32 @@ return {
         -- tsserver = {},
         --
 
+        ansiblels = {
+          cmd = { 'ansible-language-server', '--stdio' },
+          settings = {
+            ansible = {
+              python = {
+                interpreterPath = 'python',
+              },
+              ansible = {
+                path = 'ansible',
+              },
+              executionEnvironment = {
+                enabled = false,
+              },
+              validation = {
+                enabled = true,
+                lint = {
+                  enabled = true,
+                  path = 'ansible-lint',
+                },
+              },
+            },
+          },
+          filetypes = { 'yaml.ansible' },
+          single_file_support = true,
+        },
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -224,6 +250,8 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'marksman', -- Used for markdown file
+        'ansible-lint',
+        'yamlfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
