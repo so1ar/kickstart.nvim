@@ -194,6 +194,8 @@ return {
         -- tsserver = {},
         --
 
+        -- NOTE: Some Ansiblels config
+        -- https://www.reddit.com/r/neovim/comments/15txftn/need_help_to_enable_ansible_lsp_dont_want_to_use/
         ansiblels = {
           cmd = { 'ansible-language-server', '--stdio' },
           settings = {
