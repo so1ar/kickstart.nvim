@@ -9,5 +9,11 @@
     "prefix": "qm2",
     "body": ["『${0}』"],
     "description": "引号"
+  },
+
+  "comment": {
+    "prefix": "comment",
+    "body": ["<!--${0}-->"],
+    "description": "注释"
   }
 }
