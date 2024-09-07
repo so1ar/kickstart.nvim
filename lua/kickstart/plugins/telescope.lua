@@ -10,7 +10,9 @@ return {
     'nvim-telescope/telescope.nvim',
     -- event = 'VimEnter',
     branch = '0.1.x',
+    cmd = { 'Telescope' },
     keys = {
+      { '<leader>sm', desc = '[S]earch Notification [M]essages' },
       { '<leader>sh', desc = '[S]earch [H]elp' },
       { '<leader>sk', desc = '[S]earch [K]eymaps' },
       { '<leader>sf', desc = '[S]earch [F]iles' },
@@ -68,6 +70,11 @@ return {
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+
+      -- NOTE:
+      -- https://github.com/rcarriga/nvim-notify?tab=readme-ov-file#viewing-history
+      require('telescope').load_extension 'notify'
+
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -91,6 +98,7 @@ return {
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+      vim.keymap.set('n', '<leader>sm', ':Telescope notify<CR>', { desc = '[S]earch Notification [M]essages' })
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
