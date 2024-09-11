@@ -8,64 +8,114 @@ return {
   config = function()
     local get_hex = require('cokeline.hlgroups').get_hl_attr
 
-    local green = vim.g.terminal_color_2
+    local blue = vim.g.terminal_color_12
+    local purple = vim.g.terminal_color_13
     local yellow = vim.g.terminal_color_3
+
     require('cokeline').setup {
       -- Only show the bufferline when there are at least this many visible buffers.
       show_if_buffers_are_at_least = 2,
 
       default_hl = {
         fg = function(buffer)
-          return buffer.is_focused and get_hex('Normal', 'fg') or get_hex('Comment', 'fg')
+          return buffer.is_focused and get_hex('Normal', 'bg') or get_hex('Comment', 'fg')
         end,
-        bg = get_hex('ColorColumn', 'bg'),
+        bg = function(buffer)
+          if buffer.is_focused then
+            if buffer.is_modified then
+              return purple
+            end
+            return blue
+          end
+          return get_hex('ColorColumn', 'bg')
+        end,
       },
 
       components = {
+        -- tails
         {
-          text = '｜',
+          text = function(buffer)
+            if buffer.is_focused then
+              return ''
+            end
+            return ' '
+          end,
           fg = function(buffer)
-            return buffer.is_modified and yellow or green
+            if buffer.is_focused then
+              if buffer.is_modified then
+                return purple
+              end
+              return blue
+            end
+            return get_hex('ColorColumn', 'bg')
+          end,
+          bg = function(buffer)
+            if buffer.index == 1 then
+              if buffer.is_focused then
+                if buffer.is_modified then
+                  return purple
+                end
+                return blue
+              end
+              return get_hex('ColorColumn', 'bg')
+            end
+            return get_hex('ColorColumn', 'bg')
           end,
         },
+
+        -- devicons
         {
           text = function(buffer)
             return buffer.devicon.icon .. ' '
           end,
           fg = function(buffer)
+            if buffer.is_focused then
+              return get_hex('Normal', 'bg')
+            end
+            if buffer.is_modified then
+              return purple
+            end
             return buffer.devicon.color
           end,
         },
-        -- {
-        --   text = function(buffer)
-        --     return buffer.index .. ': '
-        --   end,
-        -- },
+
+        -- buffer unique prefix
         {
           text = function(buffer)
             return buffer.unique_prefix
           end,
-          fg = get_hex('Comment', 'fg'),
           italic = true,
         },
+
+        -- filename
         {
           text = function(buffer)
-            return buffer.filename .. ' '
+            return buffer.filename
           end,
           bold = function(buffer)
             return buffer.is_focused
           end,
         },
+
+        -- separator
         {
-          ---@param buffer Buffer
           text = function(buffer)
-            if buffer.is_modified then
-              return ' '
+            if buffer.is_focused then
+              return ''
             end
-            return ''
+            return ' '
           end,
-          on_click = function(_, _, _, _, buffer)
-            buffer:delete()
+          bg = function()
+            return get_hex('ColorColumn', 'bg')
+          end,
+          fg = function(buffer)
+            if buffer.is_focused then
+              if buffer.is_modified then
+                return purple
+              end
+              return blue
+            end
+            return get_hex('ColorColumn', 'bg')
           end,
         },
       },
@@ -79,7 +129,7 @@ return {
             end,
             fg = yellow,
             bg = function()
-              return get_hex('NvimTreeNormal', 'bg')
+              return get_hex('ColorColumn', 'bg')
             end,
             bold = true,
           },
