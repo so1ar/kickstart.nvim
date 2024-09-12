@@ -36,11 +36,11 @@ return {
         {
           text = function(buffer)
             if buffer.is_focused then
-              return ''
+              return ''
             end
             return ' '
           end,
-          fg = function(buffer)
+          bg = function(buffer)
             if buffer.is_focused then
               if buffer.is_modified then
                 return purple
@@ -49,7 +49,7 @@ return {
             end
             return get_hex('ColorColumn', 'bg')
           end,
-          bg = function(buffer)
+          fg = function(buffer)
             if buffer.index == 1 then
               if buffer.is_focused then
                 if buffer.is_modified then
