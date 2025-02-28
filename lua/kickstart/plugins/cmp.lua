@@ -38,6 +38,7 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-cmdline',
       'onsails/lspkind.nvim',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       -- See `:help cmp`
@@ -192,6 +193,7 @@ return {
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
+          { name = 'nvim_lsp_signature_help' },
         },
       }
 
