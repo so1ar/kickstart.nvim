@@ -4,7 +4,7 @@ return {
   ft = 'markdown',
   config = function()
     vim.g.mkdp_filetypes = { 'markdown' }
-    vim.cmd [[let g:mkdp_browser = 'firefox']]
+    vim.cmd [[let g:mkdp_browser = 'floorp']]
   end,
   keys = {
     {
