@@ -1,7 +1,8 @@
 return {
   { -- Autocompletion
     'saghen/blink.cmp',
-    event = 'VimEnter',
+    -- event = 'VimEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     version = '1.*',
     dependencies = {
       -- Snippet Engine
@@ -70,10 +71,75 @@ return {
         nerd_font_variant = 'mono',
       },
 
+      -- NOTE: cmdline completion
+      -- https://cmp.saghen.dev/configuration/reference#cmdline
+      -- https://cmp.saghen.dev/modes/cmdline.html
+      cmdline = {
+        enabled = true,
+        -- use 'inherit' to inherit mappings from top level `keymap` config
+        keymap = { preset = 'cmdline' },
+
+        -- sources = { 'buffer', 'cmdline' },
+
+        -- OR explicitly configure per cmd type
+        -- This ends up being equivalent to above since the sources disable themselves automatically
+        -- when not available. You may override their `enabled` functions via
+        -- `sources.providers.cmdline.override.enabled = function() return your_logic end`
+
+        sources = function()
+          local type = vim.fn.getcmdtype()
+          -- Search forward and backward
+          if type == '/' or type == '?' then
+            return { 'buffer' }
+          end
+          -- Commands
+          if type == ':' or type == '@' then
+            return { 'cmdline', 'buffer' }
+          end
+          return {}
+        end,
+
+        completion = {
+          list = {
+            selection = {
+              -- When `true`, will automatically select the first item in the completion list
+              preselect = false,
+              -- When `true`, inserts the completion item automatically when selecting it
+              auto_insert = true,
+            },
+          },
+          -- Whether to automatically show the window when new completion items are available
+          -- Default is false for cmdline, true for cmdwin (command-line window)
+          menu = { auto_show = true },
+          -- menu = {
+          --   auto_show = function(ctx, _)
+          --     return ctx.mode == 'cmdwin'
+          --   end,
+          -- },
+          -- Displays a preview of the selected item on the current line
+          ghost_text = { enabled = true },
+        },
+      },
+
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+
+        -- NOTE: Do not automatically select the first item in the completion list.
+        -- And inserts the completion item automatically when selecting it.
+        -- https://cmp.saghen.dev/configuration/reference.html#completion-list
+        list = {
+          selection = {
+            -- When `true`, will automatically select the first item in the completion list
+            preselect = false,
+
+            -- When `true`, inserts the completion item automatically when selecting it
+            -- You may want to bind a key to the `cancel` command (default <C-e>) when using this option,
+            -- which will both undo the selection and hide the completion menu
+            auto_insert = true,
+          },
+        },
       },
 
       sources = {
