@@ -9,7 +9,7 @@ return {
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     -- event = 'VimEnter',
-    branch = '0.1.x',
+    -- branch = '0.1.x',
     cmd = { 'Telescope' },
     keys = {
       { '<leader>sm', desc = '[S]earch Notification [M]essages' },
@@ -23,10 +23,10 @@ return {
       { '<leader>sr', desc = '[S]earch [R]esume' },
       { '<leader>s.', desc = '[S]earch Recent Files ("." for repeat)' },
       { '<leader><leader>', desc = '[ ] Find existing buffers' },
+      { '<leader>sH', desc = '[S]earch [H]idden files(may be very slow)' },
       { '<leader>/', desc = '[/] Fuzzily search in current buffer' },
       { '<leader>s/', desc = '[S]earch [/] in Open Files' },
       { '<leader>sn', desc = '[S]earch [N]eovim files' },
-      { '<leader>sH', desc = '[S]earch [H]idden files(may be very slow)' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
