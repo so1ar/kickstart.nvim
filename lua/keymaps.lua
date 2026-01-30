@@ -52,8 +52,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Changeing buffer
-vim.keymap.set('n', '<leader>l', ':bnext<CR>', { desc = 'Switch to Next buffer' })
-vim.keymap.set('n', '<leader>h', ':bprevious<CR>', { desc = 'Switch to Previous buffer' })
+vim.keymap.set('n', '<leader>ll', ':bnext<CR>', { desc = 'Switch to Next buffer' })
+vim.keymap.set('n', '<leader>hh', ':bprevious<CR>', { desc = 'Switch to Previous buffer' })
 vim.keymap.set('n', '<leader>bd', ':bd<CR>', { desc = 'Delete Current Buffer' })
 vim.keymap.set('n', '<leader>b!', ':bd!<CR>', { desc = 'Force Delete Current Buffer' })
 
